@@ -1,4 +1,4 @@
-def part1():
+def main():
     with open('input.txt', 'r') as file:
         lines = file.readlines()
         num_lines = len(lines)
@@ -14,37 +14,28 @@ def part1():
     merge_sort(left, 0, len(left) - 1)
     merge_sort(right, 0, len(right) - 1)
 
+    calculate_part1(left, right)
+    calculate_part2(left, right)
+
+def calculate_part1(left, right):
     total_dist = 0
     for i in range(len(left)):
         total_dist += abs(right[i] - left[i])
-
     print("Part 1:", total_dist)
 
-def part2():
-    with open("input.txt", 'r') as file:
-        lines = file.readlines()
-        num_lines = len(lines)
-        my_dict = {}
-        right = [0] * num_lines
-        for i in range(num_lines):
-            if not lines[i].strip():
-                return
-            words = lines[i].split()
-            num1 = int(words[0])
-            num2 = int(words[1])
-            my_dict.setdefault(num1, 0)
-            right[i] = num2
-
-    for num in right:
-        if num in my_dict:
-            my_dict[num] += num
-
+def calculate_part2(left, right):
     similarity_score = 0
-    for value in my_dict.values():
-        similarity_score += value
-
+    i = 0
+    j = 0
+    while i < len(left) and j < len(right):
+        if left[i] < right[j]:
+            i += 1
+        elif left[i] > right[j]:
+            j += 1
+        elif left[i] == right[j]:
+            similarity_score += left[i]
+            j += 1
     print("Part 2:", similarity_score)
-
 
 def merge_sort(arr, s, e):
     length = e - s + 1
@@ -91,5 +82,4 @@ def merge(arr, s, m, e):
         k += 1
 
 if __name__ == "__main__":
-    part1()
-    part2()
+    main()
