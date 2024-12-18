@@ -19,8 +19,8 @@ def main():
 
 def calculate_part1(left, right):
     total_dist = 0
-    for i in range(len(left)):
-        total_dist += abs(right[i] - left[i])
+    for left_num, right_num in zip(left, right):
+        total_dist += abs(right_num - left_num)
     print("Part 1:", total_dist)
 
 def calculate_part2(left, right):
